@@ -1,0 +1,446 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.lx.sftp</groupId>
+  <artifactId>sftp_demo</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>sftp_demo Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  <!-- 变量属性配置 -->
+  <properties>
+  	<finalName>sftp_demo</finalName>
+  	<classpath>src/main/webapp/WEB-INF/classes</classpath>
+  	<libOutputDirectory>src/main/webapp/WEB-INF/lib</libOutputDirectory>
+  	<jdk.version>1.7</jdk.version>
+  	
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	<org.slf4j.version>1.7.9</org.slf4j.version>
+  	<com.fasterxml.jackson.version>2.7.0</com.fasterxml.jackson.version>
+  </properties>
+  
+  <dependencies>
+  	
+  	<!-- SFTP 依賴 -->
+  	<dependency>
+	  <groupId>com.jcraft</groupId>
+	  <artifactId>jsch</artifactId>
+	  <version>0.1.53</version>
+	</dependency>
+	
+	<!-- SFTP java jsch 本地引用；注：v0.1.54版本本地引用 -->
+	<!-- <dependency>
+		<groupId>com.jcraft</groupId>
+	  	<artifactId>jsch</artifactId>
+		<version>0.1.54</version>
+		<scope>system</scope>
+	    <systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jsch-0.1.54.jar</systemPath>
+	</dependency> -->
+  
+  	<dependency>
+      	<groupId>junit</groupId>
+      	<artifactId>junit</artifactId>
+      	<version>4.12</version>
+      	<scope>test</scope>
+    </dependency>
+    <dependency>
+	  	<groupId>javax.servlet</groupId>
+	  	<artifactId>servlet-api</artifactId>
+	  	<version>2.5</version>
+	</dependency>
+	<dependency>
+	  	<groupId>taglibs</groupId>
+	  	<artifactId>standard</artifactId>
+	  	<version>1.1.2</version>
+	</dependency>
+	<dependency>
+	  	<groupId>jstl</groupId>
+	  	<artifactId>jstl</artifactId>
+	  	<version>1.2</version>
+	</dependency>
+	
+	<!-- 汉子转拼音 -->
+	<dependency>
+	  	<groupId>com.belerweb</groupId>
+	  	<artifactId>pinyin4j</artifactId>
+	  	<version>2.5.0</version>
+	</dependency>
+	
+	<!-- xml 依赖 -->
+	<dependency>
+	  	<groupId>dom4j</groupId>
+	  	<artifactId>dom4j</artifactId>
+	  	<version>1.6.1</version>
+	</dependency>
+	<dependency>
+	  	<groupId>com.thoughtworks.xstream</groupId>
+	  	<artifactId>xstream</artifactId>
+		<version>1.3.1</version>
+	  	<!-- <version>1.4.7</version> -->
+	</dependency>
+	
+	<!-- jackson -->
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-core</artifactId>
+		<version>${com.fasterxml.jackson.version}</version>
+	</dependency>
+	<dependency>
+	  	<groupId>com.fasterxml.jackson.core</groupId>
+	  	<artifactId>jackson-databind</artifactId>
+	  	<version>${com.fasterxml.jackson.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-annotations</artifactId>
+		<version>${com.fasterxml.jackson.version}</version>
+	</dependency>
+
+	<!-- jsonlib -->
+	<dependency>
+	  <groupId>net.sf.json-lib</groupId>
+	  <artifactId>json-lib</artifactId>
+	  <version>2.4</version>
+	  <classifier>jdk15</classifier>
+	</dependency>
+	
+	<!-- httpclient 依赖 -->
+    <dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpclient</artifactId>
+		<version>4.4</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-httpclient</groupId>
+		<artifactId>commons-httpclient</artifactId>
+		<version>3.0.1</version>
+	</dependency>
+	
+	<!-- 数据库连接 -->
+	<dependency>
+	  <groupId>mysql</groupId>
+	  <artifactId>mysql-connector-java</artifactId>
+	  <version>5.1.9</version>
+	</dependency>
+	
+	<!-- 连接池 -->
+	<dependency>
+	  <groupId>c3p0</groupId>
+	  <artifactId>c3p0</artifactId>
+	  <version>0.9.1.2</version>
+	</dependency>
+	
+	<!-- 工具包 依赖 -->
+	<dependency>
+		<groupId>commons-lang</groupId>
+  		<artifactId>commons-lang</artifactId>
+  		<version>2.6</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-logging</groupId>
+  		<artifactId>commons-logging</artifactId>
+  		<version>1.1.1</version>
+	</dependency>
+	<dependency>
+  		<groupId>commons-io</groupId>
+  		<artifactId>commons-io</artifactId>
+  		<version>1.4</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-util</groupId>
+  		<artifactId>commons-util</artifactId>
+  		<version>final</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-collections</groupId>
+  		<artifactId>commons-collections</artifactId>
+  		<version>3.2</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-beanutils</groupId>
+  		<artifactId>commons-beanutils</artifactId>
+  		<version>1.7.0</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-codec</groupId>
+  		<artifactId>commons-codec</artifactId>
+  		<version>1.4</version>
+	</dependency>
+	<dependency>
+		<groupId>commons-fileupload</groupId>
+	  	<artifactId>commons-fileupload</artifactId>
+	  	<version>1.3</version>
+	</dependency>
+	
+	<!-- slf4j 日志依赖 -->
+	<dependency>
+	  <groupId>org.slf4j</groupId>
+	  <artifactId>slf4j-log4j12</artifactId>
+	  <version>${org.slf4j.version}</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.slf4j</groupId>
+	  <artifactId>slf4j-api</artifactId>
+	  <version>${org.slf4j.version}</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.slf4j</groupId>
+	  <artifactId>slf4j-jdk14</artifactId>
+	  <version>${org.slf4j.version}</version>
+	</dependency>
+  </dependencies>
+  
+  <!-- 构建配置 -->
+  <profiles>
+  	<!-- 本地开发环境配置，默认激活 -->
+  	<profile>
+  		<id>dev_local</id>
+  		<activation>
+  			<activeByDefault>true</activeByDefault>
+  		</activation>
+  		<properties>
+  			<db.type>mysql</db.type>
+			<db.driver>com.mysql.jdbc.Driver</db.driver>
+			<db.url>jdbc:mysql://localhost:3306/fastdfs_demo?useUnicode=true&amp;characterEncoding=UTF-8</db.url>
+			<db.userName>root</db.userName>
+			<db.pwd>admin</db.pwd>
+			<outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/classes</outputDirectory>
+			<libOutputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</libOutputDirectory>
+			<skip>false</skip>
+			<skiplibcopy>false</skiplibcopy>
+			<memcache.url>127.0.0.1:11211</memcache.url>
+			<redis.url>127.0.0.1:6379 </redis.url>
+  		</properties>
+  	</profile>
+  	
+  	<!-- 测试环境配置，通过属性配置文件激活，属性配置文件中配置test=open时激活test环境配置 -->
+  	<profile>
+  		<id>test</id>
+  		<activation>
+  			<property>
+  				<name>test</name>
+  				<value>open</value>
+  			</property>
+  		</activation>
+  		<properties>
+  			<db.type>mysql</db.type>
+			<db.driver>com.mysql.jdbc.Driver</db.driver>
+			<db.url>jdbc:mysql://localhost:3306/fastdfs_demo?useUnicode=true&amp;characterEncoding=UTF-8</db.url>
+			<db.userName>root</db.userName>
+			<db.pwd>admin</db.pwd>
+			<outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/classes</outputDirectory>
+			<libOutputDirectory>${project.basedir}/src/main/webapp/WEB-INF/lib</libOutputDirectory>
+			<skip>true</skip>
+			<skiplibcopy>true</skiplibcopy>
+			<memcache.url>127.0.0.1:11211</memcache.url>
+			<redis.url>127.0.0.1:6379 </redis.url>
+  		</properties>
+  	</profile>
+  </profiles>
+  
+  <!-- 构建配置 -->
+  <build>
+    <finalName>${finalName}</finalName>
+    <outputDirectory>${classpath}</outputDirectory>
+    <testOutputDirectory>${classpath}</testOutputDirectory>
+    <resources>
+    	<resource>
+    		<directory>src/main/resources</directory>
+    		<filtering>true</filtering>
+    	</resource>
+    </resources>
+    
+    <pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.m2e</groupId>
+				<artifactId>lifecycle-mapping</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<lifecycleMappingMetadata>
+						<pluginExecutions>
+							<pluginExecution>
+								<pluginExecutionFilter>
+									<groupId>org.apache.maven.plugins</groupId>
+									<artifactId>maven-dependency-plugin</artifactId>
+									<versionRange>[2.0,)</versionRange>
+									<goals>
+										<goal>copy-dependencies</goal>
+									</goals>
+								</pluginExecutionFilter>
+								<action>
+									<ignore />
+								</action>
+							</pluginExecution>
+						</pluginExecutions>
+					</lifecycleMappingMetadata>
+				</configuration>
+			</plugin>
+		</plugins>
+	</pluginManagement>
+    
+    <!-- 插件管理 -->
+   	<plugins>
+   		
+   		<!-- mvn clean -->
+   		<plugin>
+			<artifactId>maven-antrun-plugin</artifactId>
+			<executions>
+				<execution>
+					<id>clean_local_lib</id>
+					<phase>clean</phase>
+					<configuration>
+						<tasks>
+							<echo>Clean local lib and classes. </echo>
+							<!-- <delete dir="src/main/webapp/WEB-INF/lib" /> -->
+						</tasks>
+					</configuration>
+					<goals>
+						<goal>run</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+		
+		<!-- 测试 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>2.18.1</version>
+			<configuration>
+				<skip>true</skip>
+				<!-- <excludes>com.lx.lucene/*Test.java</excludes>
+				<excludes>**/*Test.java</excludes>
+				<testFailureIgnore>true</testFailureIgnore> -->
+			</configuration>
+		</plugin>
+   	
+   		<!-- 编译 -->
+   		<plugin>
+    		<groupId>org.apache.maven.plugins</groupId>
+		  	<artifactId>maven-compiler-plugin</artifactId>
+		  	<version>3.0</version>
+		  	<configuration>
+		  		<source>${jdk.version}</source>
+		  		<target>${jdk.version}</target>
+		  		<encoding>${project.build.sourceEncoding}</encoding>
+		  	</configuration>
+   		</plugin>
+   		
+   		<!-- 资源 -->
+   		<plugin>
+   			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-resources-plugin</artifactId>
+			<version>2.7</version>
+			<configuration>
+				<encoding>${project.build.sourceEncoding}</encoding>
+			</configuration>
+			<executions>
+				<execution>
+					<phase>compile</phase>
+				</execution>
+			</executions>
+   		</plugin>
+   		
+   		<!-- 源码打包 -->
+   		<plugin>
+   			<groupId>org.apache.maven.plugins</groupId>
+		  	<artifactId>maven-source-plugin</artifactId>
+		  	<version>2.4</version>
+		  	<configuration>
+		  		<!-- 导入pom文件 -->
+		  		<includePom>false</includePom>
+		  		<!-- 每次都重新创 -->
+	  			<forceCreation>true</forceCreation>
+			</configuration>
+			<executions>
+				<execution>
+					<id>jar-no-fork</id>
+					<phase>install</phase>
+					<goals>
+						<goal>jar-no-fork</goal>
+					</goals>
+				</execution>
+			</executions>
+   		</plugin>
+   		
+   		<!-- war -->
+   		<plugin>
+   			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-war-plugin</artifactId>
+			<version>2.6</version>
+   		</plugin>
+   		
+   		<!-- 依赖 -->
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-dependency-plugin</artifactId>
+			<version>2.9</version>
+			<executions>
+				<execution>
+					<id>install</id>
+					<phase>install</phase>
+					<goals>
+						<goal>sources</goal>
+					</goals>
+				</execution>
+				<execution>
+					<id>copy-dependencies</id>
+					<phase>package</phase>
+					<goals>
+						<goal>copy-dependencies</goal>
+					</goals>
+					<configuration>
+						<outputDirectory>${libOutputDirectory}</outputDirectory>
+						<skip>false</skip>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+   	</plugins>
+  </build>
+  
+  <!-- 构建部署仓库 -->
+  <distributionManagement>
+  	<repository>
+  		<id>nexus-releases</id>
+  		<name>Nexus Releases</name>
+  		<url>http://localhost:8081/nexus/content/repositories/releases/</url>
+  	</repository>
+  	<snapshotRepository>
+  		<id>nexus-snapshots</id>
+  		<name>Nexus Snapshot</name>
+  		<url>http://localhost:8081/nexus/content/repositories/snapshots/</url>
+  	</snapshotRepository>
+  </distributionManagement>
+  
+  <!-- 仓库配置 -->
+  <repositories>
+  	<!-- 依赖仓库 -->
+  	<repository>
+  		<id>nexus</id>
+  		<name>Nexus Repository</name>
+  		<url>http://localhost:8081/nexus/content/groups/public/</url>
+  		<releases>
+  			<enabled>true</enabled>
+  		</releases>
+  		<snapshots>
+  			<enabled>true</enabled>
+  		</snapshots>
+  	</repository>
+  </repositories>
+  <!-- 插件仓库 -->
+  <pluginRepositories>
+  	<pluginRepository>
+  		<id>nexus</id>
+  		<name>Nexus Repository</name>
+  		<url>http://localhost:8081/nexus/content/groups/public/</url>
+  		<releases>
+  			<enabled>true</enabled>
+  		</releases>
+  		<snapshots>
+  			<enabled>true</enabled>
+  		</snapshots>
+  	</pluginRepository>
+  </pluginRepositories>
+</project>
